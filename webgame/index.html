@@ -1,0 +1,167 @@
+<!doctype html>
+<html lang="en">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta name="theme-color" content="#101820">
+  <title>The Last Island State</title>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+  <div class="page-shell">
+    <header class="topbar">
+      <div>
+        <p class="eyebrow">NATIONAL SURVIVAL SIMULATION</p>
+        <h1>The Last Island State</h1>
+      </div>
+      <div class="day-badge"><span>Current Day</span><strong id="day-number">Day 1</strong></div>
+    </header>
+
+    <main>
+      <section class="overview panel">
+        <div>
+          <p class="eyebrow">POPULATION</p>
+          <div class="population-number" id="population-number">6,000,000</div>
+          <p class="muted">Starting population <span id="initial-population">6,000,000</span></p>
+        </div>
+        <button class="advance-button" id="advance-button" type="button">Advance Day <span aria-hidden="true">→</span></button>
+      </section>
+
+      <details class="handbook panel">
+        <summary>Player Handbook · Quick Start Guide</summary>
+        <div class="handbook-content">
+          <section class="handbook-intro">
+            <p class="eyebrow">YOUR ROLE: PRESIDENT</p>
+            <h3>Hold the Last Island</h3>
+            <p>The world has collapsed. Your island nation is one of the last surviving countries. Manage resources, set policies, and keep your people alive.</p>
+            <p class="mission-line">Your mission: survive as long as possible.</p>
+          </section>
+
+          <section>
+            <h3>1. How to Play</h3>
+            <p>Each turn represents one day. Review your status, adjust policies, advance a day, then adapt to the results. You may change policies before advancing.</p>
+            <ul>
+              <li>Check your national status and resource estimates.</li>
+              <li>Adjust Industrial, Expedition, and Electrical policies.</li>
+              <li>Select “Advance Day” to process the next day.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>2. National Resources</h3>
+            <ul class="resource-guide-list">
+              <li><strong>Food</strong>: feeds the population.</li>
+              <li><strong>Fuel</strong>: powers electricity production and expeditions.</li>
+              <li><strong>Electricity</strong>: supports industrial production.</li>
+              <li><strong>Medicine</strong>: supports expeditions.</li>
+              <li><strong>Population</strong>: the people you must protect.</li>
+            </ul>
+            <p class="muted-guide">Resource shortages can suspend policies. Food shortages cause deaths.</p>
+          </section>
+
+          <section>
+            <h3>3. National Policies</h3>
+            <p><strong>Industrial Policy</strong> produces Food and Medicine, but consumes Electricity.</p>
+            <p><strong>Electrical Policy</strong> produces Electricity, but consumes Fuel.</p>
+            <p><strong>Expedition Policy</strong> brings back Fuel, but consumes Fuel and Medicine.</p>
+            <p>Each policy has None, Small, Moderate, and Large levels. Higher output usually means higher resource use. More production is not always better.</p>
+          </section>
+
+          <section>
+            <h3>4. Understanding National Status</h3>
+            <p>The status panel shows the day, population, current policies, and resource changes. Supply estimates show Worst, Ordinary, and Best scenarios; exact inventory amounts are hidden. Estimates are predictions, not guarantees.</p>
+            <p>Worst assumes high consumption and no production. Ordinary adds one Large production batch to current stock, then estimates duration at Small consumption. Best assumes Large production continues each day with Small consumption.</p>
+            <p>If resources are running low, consider changing policies before advancing.</p>
+          </section>
+
+          <section class="handbook-warning">
+            <h3>5. How to Lose</h3>
+            <p>Your nation falls when the population drops below 20% of its original size. If Food is insufficient, the population loses 20% of its original size that day. Protecting your people is the priority.</p>
+          </section>
+
+          <section>
+            <h3>6. Tips for New Presidents</h3>
+            <ul>
+              <li>Check your status regularly and watch for Food shortages.</li>
+              <li>Industry needs Electricity; electricity production needs Fuel.</li>
+              <li>Expeditions can recover Fuel, but also consume Fuel and Medicine.</li>
+              <li>Policies suspend automatically when resources are insufficient. Re-enable them manually after supplies recover.</li>
+              <li>Plan for tomorrow, not just today.</li>
+            </ul>
+          </section>
+
+          <section>
+            <h3>7. Multiplayer Challenge</h3>
+            <p>Play with friends by managing separate countries. The player who survives the most days wins. If tied, compare remaining population.</p>
+            <p class="muted-guide">These are suggested house rules. The game does not currently include an automated multiplayer mode.</p>
+          </section>
+
+          <section class="handbook-finale">
+            <p>You are not trying to maximize production. You are trying to keep your nation alive.</p>
+            <strong>Good luck, Mr. President.</strong>
+          </section>
+        </div>
+      </details>
+
+      <div class="content-grid">
+        <section class="panel resource-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">SUPPLY OUTLOOK</p>
+              <h2>Estimated Resource Duration</h2>
+            </div>
+            <span class="heading-note">Inventory amounts hidden</span>
+          </div>
+          <div class="resource-list" id="resource-list"></div>
+        </section>
+
+        <section class="panel policy-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">DAILY OPERATIONS</p>
+              <h2>National Policies</h2>
+            </div>
+          </div>
+          <div class="policy-controls">
+            <label class="policy-control">
+              <span>Industrial Policy</span>
+              <select id="industrial-policy" aria-label="Industrial Policy"></select>
+            </label>
+            <label class="policy-control">
+              <span>Expedition Policy</span>
+              <select id="expedition-policy" aria-label="Expedition Policy"></select>
+            </label>
+            <label class="policy-control">
+              <span>Electrical Policy</span>
+              <select id="electrical-policy" aria-label="Electrical Policy"></select>
+            </label>
+          </div>
+          <p class="policy-hint">Policies suspend automatically when resources are insufficient. Re-enable them here after supplies recover.</p>
+        </section>
+
+        <section class="panel summary-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">CHANGES SINCE LAST ADVANCE</p>
+              <h2>Daily Summary</h2>
+            </div>
+          </div>
+          <div id="daily-summary" class="summary-list"></div>
+        </section>
+
+        <section class="panel log-panel">
+          <div class="section-heading">
+            <div>
+              <p class="eyebrow">NATIONAL COMMAND</p>
+              <h2>Event Log</h2>
+            </div>
+          </div>
+          <ol id="event-log" class="event-log" aria-live="polite"></ol>
+        </section>
+      </div>
+    </main>
+    <footer>Each advance represents one day. Policies resolve according to the current prototype rules.</footer>
+  </div>
+  <script src="game.js"></script>
+</body>
+</html>
